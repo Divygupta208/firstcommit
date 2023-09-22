@@ -20,7 +20,7 @@
     //const lis = document.getElementsByTagName('li')
     //lis[4].style.color = "blue"
 
-    var item2 = document.querySelector('.list-group-item:nth-child(2)')
+   /* var item2 = document.querySelector('.list-group-item:nth-child(2)')
     item2.style.backgroundColor = "green"
     var item3 = document.querySelector('.list-group-item:nth-child(3)')
     item3.style.visibility = "hidden"
@@ -33,4 +33,46 @@
 
   for(var i = 0 ; i<odd.length ; i++){
     odd[i].style.backgroundColor = "green"
-  }
+  }*/
+  
+  var items = document.querySelector('#items')
+
+//   console.log(items.parentElement)
+
+//   console.log(items.lastElementChild)
+
+//   console.log(items.lastChild)
+
+//   console.log(items.firstElementChild)
+
+//   console.log(items.firstChild)
+
+//   console.log(items.nextSibling)
+
+//   console.log(items.nextElementSibling)
+
+  var ndiv = document.createElement('div');
+  console.log(ndiv);
+
+  ndiv.className = 'Hello';
+  
+  var ndivtext = document.createTextNode('Hello');
+
+  ndiv.appendChild(ndivtext);
+
+  ndiv.setAttribute('Title' , 'helloworld');
+
+  var container = document.querySelector('header .container');
+  var h1 = document.querySelector('header h1');
+
+  var item1 = document.querySelector('#items');
+  var li = document.querySelector('#items li')
+
+  container.insertBefore(ndiv , h1 );
+
+  item1.insertBefore(ndiv , li );
+
+ 
+
+  
+
