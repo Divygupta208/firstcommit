@@ -16,3 +16,6 @@ for(let i = 0 ; i<list.length ; i++){
     list[i].style.fontWeight = "bold"
 
 }
+
+const lis = document.getElementsByTagName('li')
+lis[4].style.color = "blue"
