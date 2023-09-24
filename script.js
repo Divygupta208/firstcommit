@@ -35,7 +35,7 @@
     odd[i].style.backgroundColor = "green"
   }*/
   
-  var items = document.querySelector('#items')
+ // var items = document.querySelector('#items')
 
 //   console.log(items.parentElement)
 
@@ -51,26 +51,40 @@
 
 //   console.log(items.nextElementSibling)
 
-  var ndiv = document.createElement('div');
-  console.log(ndiv);
+  // var ndiv = document.createElement('div');
+  // console.log(ndiv);
 
-  ndiv.className = 'Hello';
+  // ndiv.className = 'Hello';
   
-  var ndivtext = document.createTextNode('Hello');
+  // var ndivtext = document.createTextNode('Hello');
 
-  ndiv.appendChild(ndivtext);
+  // ndiv.appendChild(ndivtext);
 
-  ndiv.setAttribute('Title' , 'helloworld');
+  // ndiv.setAttribute('Title' , 'helloworld');
 
-  var container = document.querySelector('header .container');
-  var h1 = document.querySelector('header h1');
+  // var container = document.querySelector('header .container');
+  // var h1 = document.querySelector('header h1');
 
-  var item1 = document.querySelector('#items');
-  var li = document.querySelector('#items li')
+  // var item1 = document.querySelector('#items');
+  // var li = document.querySelector('#items li')
 
-  container.insertBefore(ndiv , h1 );
+  // container.insertBefore(ndiv , h1 );
 
-  item1.insertBefore(ndiv , li );
+  // item1.insertBefore(ndiv , li );
+
+  var itemList = document.getElementById('items');
+
+  itemList.addEventListener('click' , deleteItem)
+
+  function deleteItem(e){
+      
+    if(e.target.classList.contains('delete')){
+      if(confirm('Are You Sure ?')){
+        var li = e.target.parentElement;
+        itemList.removeChild(li);
+      }
+    }
+  }
 
  
 
