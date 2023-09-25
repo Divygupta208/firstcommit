@@ -51,11 +51,10 @@
 
 //   console.log(items.nextElementSibling)
 
-  // var ndiv = document.createElement('div');
+  // var ndiv = document.createElement('li');
   // console.log(ndiv);
 
   // ndiv.className = 'Hello';
-  
   // var ndivtext = document.createTextNode('Hello');
 
   // ndiv.appendChild(ndivtext);
@@ -68,10 +67,56 @@
   // var item1 = document.querySelector('#items');
   // var li = document.querySelector('#items li')
 
-  // container.insertBefore(ndiv , h1 );
+  // item1.appendChild();
 
-  // item1.insertBefore(ndiv , li );
 
+
+  var form = document.getElementById('addForm');
+  var itemList = document.getElementById('items');
+  var filter = document.getElementById('filter');
+
+  form.addEventListener('submit' , addItem);
+  filter.addEventListener('keyup' , filterItems);
+  
+  function addItem(e){
+
+    e.preventDefault();
+
+    var newItem = document.getElementById('item').value;
+    var newItemDes = document.getElementById('itemDescription').value;
+
+    var Li = document.createElement('li');
+    Li.className = 'list-group-item';
+
+    
+ 
+
+    
+    var deleteBtn = document.createElement('button');
+    var editBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    editBtn.className = 'btn btn-success btn-sm float-right';
+
+    deleteBtn.appendChild(document.createTextNode('X'));
+    editBtn.appendChild(document.createTextNode('Edit'));
+
+    Li.appendChild(document.createTextNode(newItem));
+    Li.appendChild(document.createTextNode(newItemDes));
+    
+    
+    Li.appendChild(deleteBtn);
+    Li.appendChild(editBtn); 
+
+    console.log(Li);
+   
+    itemList.appendChild(Li);
+
+
+  }
+
+  
+
+  
   var itemList = document.getElementById('items');
 
   itemList.addEventListener('click' , deleteItem)
@@ -86,7 +131,21 @@
     }
   }
 
- 
+  function filterItems(e){
+    var text = e.target.value.toLowerCase();
 
-  
-
+    var items = itemList.getElementsByTagName('li');
+     Array.from(items).forEach(function(item){
+      var itemName = item.firstChild.textContent;
+      var itemDes = item.children[1].textContent;
+      console.log(itemDes);
+      if(itemName.toLowerCase().indexOf(text) != -1  ){
+        item.style.display = 'block';
+      }else if(itemDes.toLowerCase().indexOf(text) != -1){
+        item.style.display = 'block';
+      }
+      else{
+        item.style.display = 'none';
+      }
+     })
+  }
