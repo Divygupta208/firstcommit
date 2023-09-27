@@ -19,11 +19,35 @@ function addItem(e){
 
  
   itemList.appendChild(Li);
-
+  
+  let myobj = {
+    name : newItem,
+    e_mail : mail,
+  }
+ 
+  addItemLocal(myobj);
    
-localStorage.setItem('user-details' , newItem );
-localStorage.setItem('user-email' , mail);
-
+ 
   
 }
 
+function addItemLocal(myobj){
+    let obj = getItemLocal();
+
+    obj.push(myobj);
+
+    localStorage.setItem('user-details' , JSON.stringify(obj));
+}
+
+function getItemLocal(){
+  let obj ;
+  const objLS = localStorage.getItem('user-details');
+
+  if( objLS === null){
+    obj = [];
+  }else{
+    obj = JSON.parse(objLS);
+  }
+return obj;
+
+}
