@@ -36,12 +36,12 @@ function addItemLocal(myobj){
 
     obj.push(myobj);
 
-    localStorage.setItem('user-details' , JSON.stringify(obj));
+    localStorage.setItem( myobj.e_mail , JSON.stringify(obj));
 }
 
 function getItemLocal(){
   let obj ;
-  const objLS = localStorage.getItem('user-details');
+  const objLS = localStorage.getItem('myobj.e_mail');
 
   if( objLS === null){
     obj = [];
