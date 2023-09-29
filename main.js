@@ -24,13 +24,16 @@ function addItem(e){
   Li.appendChild(document.createTextNode(newItem));
    
   var deleteBtn = document.createElement('button');
- 
+  var editBtn = document.createElement('button');
+  
   deleteBtn.className = 'delete';
- 
+  editBtn.className = 'edit';
 
   deleteBtn.appendChild(document.createTextNode('X'));
- 
+  editBtn.appendChild(document.createTextNode('E'));
   
+
+  Li.appendChild(editBtn);
   Li.appendChild(deleteBtn);
  
  
@@ -43,7 +46,14 @@ function addItem(e){
  
   addItemLocal(myobj);
    
+   
+  editBtn.onclick = ()=> {
+    document.getElementById('name').value = myobj.name ;
+    document.getElementById('email').value = myobj.e_mail ;
+     removeLocal(myobj.e_mail);
+  }
  
+
   
 }
 
@@ -88,3 +98,4 @@ function removeLocal(datamail){
       localStorage.removeItem(datamail);
    
 }
+
