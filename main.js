@@ -3,22 +3,15 @@ var itemList = document.querySelector('.items');
 
 
 form.addEventListener('submit' , addItem);
-
-//itemList.addEventListener('click' , removeData);
-
+document.addEventListener('DOMContentLoaded', getUser) 
 
  function addItem(e){
-   
-  
   e.preventDefault();
-  
-
 
   var newItem = document.getElementById('name').value;
   var mail = document.querySelector('#email').value;
   var Number = document.querySelector('#phone').value;
   
-
   let myobj = {
     name : newItem,
     e_mail : mail,
@@ -28,80 +21,64 @@ form.addEventListener('submit' , addItem);
   axios
   .post("https://crudcrud.com/api/238d82906f384c54942a435183988893/userAppointement",myobj)
   .then((res)=>{
-     console.log(res);
+   
+     showOutput(res.data);
   })
   .catch((err)=>{
     document.body.innerHTML = document.body.innerHTML + "<h4>Something Went Wrong</h4>";
   })
-  
-  var Li = document.createElement('li');
-  Li.className = 'item';
-  Li.setAttribute("mail" , mail);
-
-  Li.appendChild(document.createTextNode(newItem+"-"));
-  Li.appendChild(document.createTextNode(mail+"-"));
-  Li.appendChild(document.createTextNode(Number));
-   
-  var deleteBtn = document.createElement('button');
-  var editBtn = document.createElement('button');
-  
-  deleteBtn.className = 'delete';
-  editBtn.className = 'edit';
-
-  deleteBtn.appendChild(document.createTextNode('X'));
-  editBtn.appendChild(document.createTextNode('      Edit'));
-  editBtn.style = 'background-color : green';
-  
-  
-
-  Li.appendChild(editBtn);
-  Li.appendChild(deleteBtn);
+    
+  // editBtn.onclick = ()=> {
+  //   document.getElementById('name').value = myobj.name ;
+  //   document.getElementById('email').value = myobj.e_mail ;
+  //    removeLocal(myobj.e_mail);
+  // }
  
- 
-  itemList.appendChild(Li);
-  
+}
 
-   
-  editBtn.onclick = ()=> {
-    document.getElementById('name').value = myobj.name ;
-    document.getElementById('email').value = myobj.e_mail ;
-     removeLocal(myobj.e_mail);
-  }
- 
-  
+function getUser(){
+  axios.get("https://crudcrud.com/api/238d82906f384c54942a435183988893/userAppointement")
+  .then((response)=>{
+    
+    for(var i = 0 ; i<response.data.length ; i++){
+      showOutput(response.data[i]);
+    }
+    
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
 }
 
 
 
-// function getItemLocal(){
-//   let obj ;
-//   const objLS = localStorage.getItem('myobj.e_mail');
+function showOutput(res){
 
-//   if( objLS === null){
-//     obj = [];
-//   }else{
-//     obj = JSON.parse(objLS);
-//   }
-// return obj;
+    var Li = document.createElement('li');
+    Li.className = "item";
+    var box1 = document.createElement('div');
+    var box2 = document.createElement('div');
+    box1.className = 'box1';
+    box2.className = 'box2';
+    box1.appendChild(document.createTextNode(`${res.name} - ${res.e_mail} - ${res.phone}`));
 
-// }
-
-
-// function removeData(e){
-//     let data , datamail;
-//    if(e.target.classList.contains('delete')){
-//      e.target.parentElement.remove();
-//      data = e.target.parentElement;
-//      datamail = data.getAttribute('mail');
-//    }
+  
+    var deleteBtn = document.createElement('button');
+    var editBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger btn ms-4 float-right delete';
+    editBtn.className = 'btn btn-success btn-sm ms-4 float-right';
+    deleteBtn.appendChild(document.createTextNode('X'));
+    editBtn.appendChild(document.createTextNode('Edit'));
     
-//    removeLocal(datamail);
+   box2.appendChild(editBtn);
+  box2.appendChild(deleteBtn);
 
-//   }
+  Li.appendChild(box1);
+  Li.appendChild(box2);
 
-// function removeLocal(datamail){
+  itemList.appendChild(Li);
+    
 
-//       localStorage.removeItem(datamail);
-   
-// }
+}
+
 
