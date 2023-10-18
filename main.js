@@ -4,10 +4,10 @@ var itemList = document.querySelector('.items');
 
 form.addEventListener('submit' , addItem);
 
-itemList.addEventListener('click' , removeData);
+//itemList.addEventListener('click' , removeData);
 
 
-function addItem(e){
+ function addItem(e){
    
   
   e.preventDefault();
@@ -16,12 +16,31 @@ function addItem(e){
 
   var newItem = document.getElementById('name').value;
   var mail = document.querySelector('#email').value;
+  var Number = document.querySelector('#phone').value;
+  
+
+  let myobj = {
+    name : newItem,
+    e_mail : mail,
+    phone : Number
+  }
+  
+  axios
+  .post("https://crudcrud.com/api/238d82906f384c54942a435183988893/userAppointement",myobj)
+  .then((res)=>{
+     console.log(res);
+  })
+  .catch((err)=>{
+    document.body.innerHTML = document.body.innerHTML + "<h4>Something Went Wrong</h4>";
+  })
   
   var Li = document.createElement('li');
   Li.className = 'item';
   Li.setAttribute("mail" , mail);
 
-  Li.appendChild(document.createTextNode(newItem));
+  Li.appendChild(document.createTextNode(newItem+"-"));
+  Li.appendChild(document.createTextNode(mail+"-"));
+  Li.appendChild(document.createTextNode(Number));
    
   var deleteBtn = document.createElement('button');
   var editBtn = document.createElement('button');
@@ -30,7 +49,9 @@ function addItem(e){
   editBtn.className = 'edit';
 
   deleteBtn.appendChild(document.createTextNode('X'));
-  editBtn.appendChild(document.createTextNode('E'));
+  editBtn.appendChild(document.createTextNode('      Edit'));
+  editBtn.style = 'background-color : green';
+  
   
 
   Li.appendChild(editBtn);
@@ -39,13 +60,7 @@ function addItem(e){
  
   itemList.appendChild(Li);
   
-  let myobj = {
-    name : newItem,
-    e_mail : mail,
-  }
- 
-  addItemLocal(myobj);
-   
+
    
   editBtn.onclick = ()=> {
     document.getElementById('name').value = myobj.name ;
@@ -53,49 +68,40 @@ function addItem(e){
      removeLocal(myobj.e_mail);
   }
  
-
   
 }
 
 
 
-function addItemLocal(myobj){
-    let obj = getItemLocal();
+// function getItemLocal(){
+//   let obj ;
+//   const objLS = localStorage.getItem('myobj.e_mail');
 
-    obj.push(myobj);
+//   if( objLS === null){
+//     obj = [];
+//   }else{
+//     obj = JSON.parse(objLS);
+//   }
+// return obj;
 
-    localStorage.setItem( myobj.e_mail , JSON.stringify(obj));
-}
-
-function getItemLocal(){
-  let obj ;
-  const objLS = localStorage.getItem('myobj.e_mail');
-
-  if( objLS === null){
-    obj = [];
-  }else{
-    obj = JSON.parse(objLS);
-  }
-return obj;
-
-}
+// }
 
 
-function removeData(e){
-    let data , datamail;
-   if(e.target.classList.contains('delete')){
-     e.target.parentElement.remove();
-     data = e.target.parentElement;
-     datamail = data.getAttribute('mail');
-   }
+// function removeData(e){
+//     let data , datamail;
+//    if(e.target.classList.contains('delete')){
+//      e.target.parentElement.remove();
+//      data = e.target.parentElement;
+//      datamail = data.getAttribute('mail');
+//    }
     
-   removeLocal(datamail);
+//    removeLocal(datamail);
 
-  }
+//   }
 
-function removeLocal(datamail){
+// function removeLocal(datamail){
 
-      localStorage.removeItem(datamail);
+//       localStorage.removeItem(datamail);
    
-}
+// }
 
