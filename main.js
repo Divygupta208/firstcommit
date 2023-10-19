@@ -3,7 +3,8 @@ var itemList = document.querySelector('.items');
 
 
 form.addEventListener('submit' , addItem);
-document.addEventListener('DOMContentLoaded', getUser) 
+document.addEventListener('DOMContentLoaded', getUser)
+itemList.addEventListener('click', deleteUser);
 
  function addItem(e){
   e.preventDefault();
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', getUser)
   }
   
   axios
-  .post("https://crudcrud.com/api/238d82906f384c54942a435183988893/userAppointement",myobj)
+  .post("https://crudcrud.com/api/5ff0ae9021034b45a65797713719872f/userAppointement",myobj)
   .then((res)=>{
    
      showOutput(res.data);
@@ -33,11 +34,12 @@ document.addEventListener('DOMContentLoaded', getUser)
   //   document.getElementById('email').value = myobj.e_mail ;
   //    removeLocal(myobj.e_mail);
   // }
- 
+
+
 }
 
 function getUser(){
-  axios.get("https://crudcrud.com/api/238d82906f384c54942a435183988893/userAppointement")
+  axios.get("https://crudcrud.com/api/5ff0ae9021034b45a65797713719872f/userAppointement")
   .then((response)=>{
     
     for(var i = 0 ; i<response.data.length ; i++){
@@ -61,7 +63,7 @@ function showOutput(res){
     box1.className = 'box1';
     box2.className = 'box2';
     box1.appendChild(document.createTextNode(`${res.name} - ${res.e_mail} - ${res.phone}`));
-
+    Li.setAttribute("id" ,res._id);
   
     var deleteBtn = document.createElement('button');
     var editBtn = document.createElement('button');
@@ -81,4 +83,21 @@ function showOutput(res){
 
 }
 
+function deleteUser(e){
+ 
+  e.preventDefault();
+  var id = e.target.parentElement.parentElement.getAttribute('id');
+  itemList.removeChild(e.target.parentElement.parentElement);
+  axios
+  .delete(`https://crudcrud.com/api/5ff0ae9021034b45a65797713719872f/userAppointement/${id}`);
+  
+}
 
+  
+
+
+
+
+
+
+ 
