@@ -111,6 +111,8 @@
    
     itemList.appendChild(Li);
 
+    localStorage.setItem( newItem , newItemDes);
+
 
   }
 
